@@ -15,7 +15,7 @@ namespace OpenBulletCE.Views.Main
 
         private void repoButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            Process.Start("https://github.com/");
+            Process.Start("https://github.com/OpenBulletCookieEdition/OpenBulletCookieEdition");
         }
 
         private void docuButton_Click(object sender, System.Windows.RoutedEventArgs e)
