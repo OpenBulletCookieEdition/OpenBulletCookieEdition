@@ -1,0 +1,38 @@
+﻿<Page x:Class="OpenBulletCE.Views.StackerBlocks.PageBlockCookieContainer"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:OpenBulletCE.Views.StackerBlocks"
+      mc:Ignorable="d" 
+      d:DesignHeight="550" d:DesignWidth="400"
+      Title="PageBlockCookieContainer">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0">
+            <DockPanel>
+                <Label Content="Variable Name:"/>
+                <TextBox Text="{Binding VariableName, UpdateSourceTrigger=PropertyChanged}"/>
+            </DockPanel>
+            <DockPanel Margin="0 5 0 0">
+                <Label Content="Input string:"/>
+                <TextBox Text="{Binding InputString, UpdateSourceTrigger=PropertyChanged}" ToolTip="For whole lists use the syntax &lt;LISTNAME[*]&gt;"/>
+            </DockPanel>
+            <DockPanel>
+                <Label Content="Domain:"/>
+                <TextBox Text="{Binding Domain, UpdateSourceTrigger=PropertyChanged}"/>
+            </DockPanel>
+            <DockPanel>
+                <Label Content="Save netscape? :" >
+                    <Label.ToolTip>If Yes, use block Utility and variable COOKIENETSCAPE </Label.ToolTip>
+                </Label>
+                <CheckBox Margin="0 14 0 0" IsChecked="{Binding SaveNetscape, UpdateSourceTrigger=PropertyChanged}"/>
+            </DockPanel>
+        </StackPanel>
+    </Grid>
+</Page>
