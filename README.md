@@ -6,7 +6,7 @@ OpenBullet is a webtesting suite that allows to perform requests towards a targe
 
 **IMPORTANT!** Performing (D)DoS attacks or credential stuffing on sites you do not own (or you do not have permission to test) is **illegal!** The developer will not be held responsible for improper use of this software.
 
-![Runner](https://imgur.com/a/ZUoTzTZ)
+![Runner](https://i.imgur.com/cHt4VFj.png)
 
 # How to build
 0. Make sure you have installed the .NET framework (dev) 4.7.2.
