@@ -150,7 +150,7 @@
                             <GridViewColumnHeader Tag="Path" Click="listViewColumnHeader_Click">Path</GridViewColumnHeader>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=TotalCookiesFolders}">
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=TotalCookiesFiles}">
                         <GridViewColumn.Header>
                             <GridViewColumnHeader Tag="Total" Click="listViewColumnHeader_Click">Total</GridViewColumnHeader>
                         </GridViewColumn.Header>

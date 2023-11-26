@@ -193,7 +193,7 @@ namespace RuriLib.Runner
                     switch (Config.Settings.Type)
                     {
                         case Enums.ConfigType.CookieEdition:
-                            return Cookielist == null ? 0 : Cookielist.TotalCookiesFolders;
+                            return Cookielist == null ? 0 : Cookielist.TotalCookiesFiles;
 
                         case Enums.ConfigType.Default:
                             return Wordlist == null ? 0 : Wordlist.Total;
@@ -499,7 +499,7 @@ namespace RuriLib.Runner
                     break;
                 case Enums.ConfigType.CookieEdition:
                     if (Cookielist == null) throw new Exception("No Cookie list loaded!");
-                    DataPool = new DataPool(Cookielist.PathAllCookiesFolders);
+                    DataPool = new DataPool(Cookielist.PathAllCookiesFiles);
                     break;
                 default: throw new Exception("Wrong config Type!");
             }

@@ -140,7 +140,7 @@
                         </GridViewColumn.Header>
                     </GridViewColumn>
 
-                    <GridViewColumn Width="60" DisplayMemberBinding="{Binding Path=TotalCookiesFolders}">
+                    <GridViewColumn Width="60" DisplayMemberBinding="{Binding Path=TotalCookiesFiles}">
                         <GridViewColumn.Header>
                             <GridViewColumnHeader Tag="Total" Click="listViewColumnHeader_Click">Total</GridViewColumnHeader>
                         </GridViewColumn.Header>

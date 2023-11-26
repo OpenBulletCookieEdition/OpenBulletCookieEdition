@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
+using Alphaleonis.Win32.Filesystem;
 
 namespace RuriLib.Models
 {
@@ -13,10 +15,13 @@ namespace RuriLib.Models
         /// <summary>The path where the file is stored on disk.</summary>
         public string PathOwnerFolder { get; set; }
 
-        public List<string> PathAllCookiesFolders { get; set; }
+        /// <summary>
+        /// All cookies files found int the folder PathOwnerFolder
+        /// </summary>
+        public List<string> PathAllCookiesFiles { get; set; }
 
         /// <summary>The total number of data lines of the file.</summary>
-        public int TotalCookiesFolders { get; set; }
+        public int TotalCookiesFiles { get; set; }
 
         /// <summary>Needed for NoSQL deserialization.</summary>
         public Cookie() { }
@@ -25,24 +30,55 @@ namespace RuriLib.Models
         /// Creates an instance of a Wordlist.
         /// </summary>
         /// <param name="name">The name of the Cookies</param>
-        /// <param name="path">The path to the file on disk</param>
+        /// <param name="pathownerfolder">The path to the folder on disk</param>
         public Cookie(string name, string pathownerfolder)
         {
             Name = name;
             PathOwnerFolder = pathownerfolder;
-            PathAllCookiesFolders = new List<string>();
-            var folders = new List<string>();
-            folders.AddRange(Directory.GetDirectories(pathownerfolder, "*Cookies*", SearchOption.AllDirectories));
-            folders.AddRange(Directory.GetDirectories(pathownerfolder, "*Browsers*", SearchOption.AllDirectories));
-            foreach (var folder in folders)
+            PathAllCookiesFiles = new List<string>();
+
+            IEnumerable<string> directories = Alphaleonis.Win32.Filesystem.Directory.EnumerateDirectories(pathownerfolder, "*Cookies*", SearchOption.AllDirectories);
+            directories.Concat(Alphaleonis.Win32.Filesystem.Directory.EnumerateDirectories(pathownerfolder, "*Browsers*", SearchOption.AllDirectories));
+            directories.Distinct();
+
+            #region Testing
+            //(from directory in directories.AsParallel()
+            //where Alphaleonis.Win32.Filesystem.Directory.Exists(directory)
+            //select directory).ForAll(dir => {
+
+            //    string[] files = Alphaleonis.Win32.Filesystem.Directory.GetFiles(dir, "*.txt*", SearchOption.AllDirectories);
+            //    foreach (string item in files.Distinct<string>())
+            //    {
+            //        PathAllCookiesFiles.Add(item);
+            //    }
+
+            //});
+
+            //Parallel.ForEach(directories, path =>
+            //{
+            //    if (Alphaleonis.Win32.Filesystem.Directory.Exists(path))
+            //    {
+            //        string[] files = Alphaleonis.Win32.Filesystem.Directory.GetFiles(path, "*.txt*", SearchOption.AllDirectories);
+            //        foreach (string item in files.Distinct<string>())
+            //        {
+            //            PathAllCookiesFiles.Add(item);
+            //        }
+            //    }
+            //});
+            #endregion
+
+            foreach (string path in directories)
             {
-                string[] files = Directory.GetFiles(folder, "*.txt*", SearchOption.AllDirectories);
-                foreach (string item in files.Distinct<string>())
+                if (Alphaleonis.Win32.Filesystem.Directory.Exists(path))
                 {
-                    PathAllCookiesFolders.Add(item);
+                    string[] files = Alphaleonis.Win32.Filesystem.Directory.GetFiles(path, "*.txt*", SearchOption.AllDirectories);
+                    foreach (string item in files.Distinct<string>())
+                    {
+                        PathAllCookiesFiles.Add(item);
+                    }
                 }
             }
-            TotalCookiesFolders = PathAllCookiesFolders.Count;
+            TotalCookiesFiles = PathAllCookiesFiles.Count;
         }
     }
 }
