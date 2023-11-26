@@ -394,7 +394,7 @@ namespace RuriLib.Runner
             Wordlist = wordlist;
             OnPropertyChanged("WordlistName");
             OnPropertyChanged("ListSize");
-            RaiseWordlistChanged();
+            RaiseListChanged();
         }
 
         /// <summary>
@@ -406,7 +406,20 @@ namespace RuriLib.Runner
             Cookielist = cookielist;
             OnPropertyChanged("CookieName");
             OnPropertyChanged("ListSize");
-            RaiseCookielistChanged();
+            RaiseListChanged();
+        }
+
+        /// <summary>
+        /// Reset Cookie and Word lists.
+        /// </summary>
+        public void ResetLists()
+        {
+            Wordlist = null;
+            Cookielist = null;
+            OnPropertyChanged("WordlistName");
+            OnPropertyChanged("CookieName");
+            OnPropertyChanged("ListSize");
+            RaiseListChanged();
         }
         #endregion
 
@@ -1154,11 +1167,9 @@ namespace RuriLib.Runner
         /// <summary>Fired when the currently selected Config changed.</summary>
         public event Action<IRunnerMessaging> ConfigChanged;
         
-        /// <summary>Fired when the currently selected Wordlist changed.</summary>
-        public event Action<IRunnerMessaging> WordlistChanged;
+        /// <summary>Fired when the currently selected Wordlist or Cookie list changed.</summary>
+        public event Action<IRunnerMessaging> ListChanged;
 
-        /// <summary>Fired when the currently selected Cookielist changed.</summary>
-        public event Action<IRunnerMessaging> CookielistChanged;
 
         private void RaiseMessageArrived(LogLevel level, string message, bool prompt = false, int timeout = 0)
         {
@@ -1201,15 +1212,11 @@ namespace RuriLib.Runner
             ConfigChanged?.Invoke(this);
         }
 
-        private void RaiseWordlistChanged()
+        private void RaiseListChanged()
         {
-            WordlistChanged?.Invoke(this);
+            ListChanged?.Invoke(this);
         }
 
-        private void RaiseCookielistChanged()
-        {
-            CookielistChanged?.Invoke(this);
-        }
         #endregion
 
         #region Proxy Management Methods

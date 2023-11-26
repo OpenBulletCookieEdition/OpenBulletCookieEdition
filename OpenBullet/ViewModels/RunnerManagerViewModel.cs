@@ -38,8 +38,7 @@ namespace OpenBulletCE.ViewModels
         {
             var instance = new RunnerInstance(rand.Next());
             instance.ViewModel.ConfigChanged += OnRunnerSessionChanged;
-            instance.ViewModel.WordlistChanged += OnRunnerSessionChanged;
-            instance.ViewModel.CookielistChanged += OnRunnerSessionChanged;
+            instance.ViewModel.ListChanged += OnRunnerSessionChanged;
             RunnersCollection.Add(instance);
             return instance.ViewModel;
         }
