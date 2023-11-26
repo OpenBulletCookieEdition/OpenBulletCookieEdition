@@ -317,6 +317,7 @@ namespace OpenBulletCE.Views.Main.Runner
         #region UI Elements
         private void selectConfigButton_Click(object sender, RoutedEventArgs e)
         {
+            vm.ResetLists();
             (new MainDialog(new DialogSelectConfig(this), "Select Config")).ShowDialog();
         }
 
@@ -465,6 +466,7 @@ namespace OpenBulletCE.Views.Main.Runner
 
         private void sendToDebugger_Click(object sender, RoutedEventArgs e)
         {
+            
             try // Try because StackerPage can be null if not initialized yet
             {
                 var stacker = OB.Stacker;

@@ -75,6 +75,10 @@ namespace RuriLib.Interfaces
         void SetCookielist(Cookie cookielist);
 
         /// <summary>
+        /// Reset Cookie and Word lists
+        /// </summary>
+        void ResetLists();
+        /// <summary>
         /// The amount of concurrent Bots.
         /// </summary>
         int BotsAmount { get; set; }
@@ -113,7 +117,7 @@ namespace RuriLib.Interfaces
         /// <summary>Fired when the currently selected Config changed.</summary>
         event Action<IRunnerMessaging> ConfigChanged;
 
-        /// <summary>Fired when the currently selected Wordlist changed.</summary>
-        event Action<IRunnerMessaging> WordlistChanged;
+        /// <summary>Fired when the currently selected Wordlist or Cookie list changed.</summary>
+        event Action<IRunnerMessaging> ListChanged;
     }
 }
