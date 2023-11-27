@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 using OpenBulletCE.Repositories;
 using RuriLib.Interfaces;
 using RuriLib.Models;
+using RuriLib.Utils;
 using RuriLib.ViewModels;
 
 namespace OpenBulletCE.ViewModels
@@ -70,8 +69,10 @@ namespace OpenBulletCE.ViewModels
         }
         public static Cookie FileToCookielist(string path)
         {
-            // Build the wordlist object
-            var cookie = new Cookie(Path.GetFileNameWithoutExtension(path), path);
+            // Build the cookie object
+            var name = Path.GetFileNameWithoutExtension(path);
+            var pathAllCookieFiles = ParseCookieFiles.Parse(path);
+            var cookie = new Cookie(name, path, pathAllCookieFiles);
 
             return cookie;
         }

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms;
 using System.Windows.Input;
 using Ookii.Dialogs.Wpf;
 using OpenBulletCE.Views.Main;
 using RuriLib.Models;
+using RuriLib.Utils;
 
 namespace OpenBulletCE.Views.Dialogs
 {
@@ -31,7 +31,10 @@ namespace OpenBulletCE.Views.Dialogs
                 if (nameTextbox.Text.Trim() == string.Empty) { System.Windows.Forms.MessageBox.Show("The name cannot be blank"); return; }
 
                 var path = locationTextbox.Text;
-                ((CookieManager)Caller).AddCookie(new Cookie(nameTextbox.Text, path));
+                var name = nameTextbox.Text;
+                var pathAllCookieFiles = ParseCookieFiles.Parse(path);
+
+                ((CookieManager)Caller).AddCookie(new Cookie(name, path, pathAllCookieFiles));
             }
             ((MainDialog)Parent).Close();
         }
