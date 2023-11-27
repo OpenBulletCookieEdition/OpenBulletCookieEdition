@@ -1,22 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using OpenBulletCE.ViewModels;
 using OpenBulletCE.Views.Dialogs;
 using RuriLib.Models;
+using RuriLib.Utils;
 
 namespace OpenBulletCE.Views.Main
 {
@@ -128,7 +119,9 @@ namespace OpenBulletCE.Views.Main
                     try
                     {
                         // Build the cookie object
-                        var cookie = new Cookie(System.IO.Path.GetFileNameWithoutExtension(path), path);
+                        var name = System.IO.Path.GetFileNameWithoutExtension(path);
+                        var pathAllCookieFiles = ParseCookieFiles.Parse(path);
+                        var cookie = new Cookie(name, path, pathAllCookieFiles);
 
                         // Add the cookie to the manager
                         AddCookie(cookie);

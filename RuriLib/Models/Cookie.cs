@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Alphaleonis.Win32.Filesystem;
 
 namespace RuriLib.Models
 {
+    /// <summary>
+    /// Represents a file as a source of input data that needs to be tested against a Config by the Runner.
+    /// </summary>
     public class Cookie : Persistable<Guid>
     {
         /// <summary>The name of the Cookie.</summary>
@@ -27,57 +31,16 @@ namespace RuriLib.Models
         public Cookie() { }
 
         /// <summary>
-        /// Creates an instance of a Wordlist.
+        /// Creates an instance of a Cookie list.
         /// </summary>
-        /// <param name="name">The name of the Cookies</param>
+        /// <param name="name">The name of the Root logs path</param>
         /// <param name="pathownerfolder">The path to the folder on disk</param>
-        public Cookie(string name, string pathownerfolder)
+        /// <param name="cookiefiles">The paths to the cookie files on disk</param>
+        public Cookie(string name, string pathownerfolder, List<string> cookiefiles)
         {
             Name = name;
             PathOwnerFolder = pathownerfolder;
-            PathAllCookiesFiles = new List<string>();
-
-            IEnumerable<string> directories = Alphaleonis.Win32.Filesystem.Directory.EnumerateDirectories(pathownerfolder, "*Cookies*", SearchOption.AllDirectories);
-            directories.Concat(Alphaleonis.Win32.Filesystem.Directory.EnumerateDirectories(pathownerfolder, "*Browsers*", SearchOption.AllDirectories));
-            directories.Distinct();
-
-            #region Testing
-            //(from directory in directories.AsParallel()
-            //where Alphaleonis.Win32.Filesystem.Directory.Exists(directory)
-            //select directory).ForAll(dir => {
-
-            //    string[] files = Alphaleonis.Win32.Filesystem.Directory.GetFiles(dir, "*.txt*", SearchOption.AllDirectories);
-            //    foreach (string item in files.Distinct<string>())
-            //    {
-            //        PathAllCookiesFiles.Add(item);
-            //    }
-
-            //});
-
-            //Parallel.ForEach(directories, path =>
-            //{
-            //    if (Alphaleonis.Win32.Filesystem.Directory.Exists(path))
-            //    {
-            //        string[] files = Alphaleonis.Win32.Filesystem.Directory.GetFiles(path, "*.txt*", SearchOption.AllDirectories);
-            //        foreach (string item in files.Distinct<string>())
-            //        {
-            //            PathAllCookiesFiles.Add(item);
-            //        }
-            //    }
-            //});
-            #endregion
-
-            foreach (string path in directories)
-            {
-                if (Alphaleonis.Win32.Filesystem.Directory.Exists(path))
-                {
-                    string[] files = Alphaleonis.Win32.Filesystem.Directory.GetFiles(path, "*.txt*", SearchOption.AllDirectories);
-                    foreach (string item in files.Distinct<string>())
-                    {
-                        PathAllCookiesFiles.Add(item);
-                    }
-                }
-            }
+            PathAllCookiesFiles = cookiefiles;
             TotalCookiesFiles = PathAllCookiesFiles.Count;
         }
     }

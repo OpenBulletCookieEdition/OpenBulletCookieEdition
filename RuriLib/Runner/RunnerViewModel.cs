@@ -559,6 +559,9 @@ namespace RuriLib.Runner
             // Checking Process
             foreach (var data in DataPool.List.Skip(StartingPoint - 1))
             {
+                // may be data is null
+                if(data is null)   continue;
+
                 // Check if there is a cancellation request
                 if (Master.CancellationPending)
                 {

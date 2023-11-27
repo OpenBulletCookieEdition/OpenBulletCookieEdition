@@ -25,7 +25,7 @@ namespace OpenBulletCE
             Alerter = Alerter
         };
 
-        public static string Version => "1.3.0";
+        public static string Version => "1.3.1";
 
         // Block Mappings (including Plugins)
         public static List<(Type, Type, Color)> BlockMappings = new List<(Type, Type, Color)>();
